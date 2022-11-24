@@ -1,0 +1,31 @@
+{
+  "name": "housing",
+  "version": "1.0.0",
+  "description": "Creating Housing API to learn NodeJS",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon src/server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AdamMokhtar/Housing.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AdamMokhtar/Housing/issues"
+  },
+  "homepage": "https://github.com/AdamMokhtar/Housing#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongoose": "^6.7.2",
+    "morgan": "^1.10.0",
+    "swagger-jsdoc": "^6.2.5",
+    "swagger-ui-express": "^4.6.0"
+  }
+}
