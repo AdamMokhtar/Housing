@@ -3,7 +3,7 @@ var ResidentDB = require("../model/resident");
 exports.getAllResidents = async (req, res) => {
   try {
     const residents = await ResidentDB.find();
-    res.json(residents);
+    res.status(200).json(residents);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

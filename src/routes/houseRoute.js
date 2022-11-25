@@ -19,4 +19,14 @@ router.post("/", houseController.postHouse);
  */
 router.patch("/addResident/:id", houseController.addResident);
 
+/**
+ * @description post a new house
+ * @method patch
+ */
+router.patch("/removeResident/:id", houseController.removeResident);
+/**
+ * @description post a new house
+ * @method delete
+ */
+router.patch("/:id", houseController.deleteHouse);
 module.exports = router;

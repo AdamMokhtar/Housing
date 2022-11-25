@@ -1,4 +1,5 @@
 const houseRouteDoc = require("./house.doc");
+const residentRouteDoc = require("./resident.doc");
 
 const swaggerDocumentation = {
   openapi: "3.0.3",
@@ -27,6 +28,7 @@ const swaggerDocumentation = {
   ],
   paths: {
     ...houseRouteDoc,
+    ...residentRouteDoc,
   },
 };
 
