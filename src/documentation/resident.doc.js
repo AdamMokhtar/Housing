@@ -72,10 +72,48 @@ const postResident = {
   },
 };
 
+const deleteResident = {
+  tags: ["Resident"],
+  summary: "Deleting a resident",
+  description: "remove a resident from the system",
+  parameters: [
+    {
+      name: "Id",
+      in: "path",
+      description: "resident Id to be deleted",
+      required: "true",
+    },
+  ],
+  responses: {
+    200: {
+      description: "successful operation",
+      content: {
+        "application/json": {
+          schema: {
+            example: {
+              message:
+                "Resident with the id 6380a3b030b03fe6297990c2 is deleted!",
+            },
+          },
+        },
+      },
+    },
+    400: {
+      description: "resident id is needed!",
+    },
+    500: {
+      description: "Unexpected condition",
+    },
+  },
+};
+
 const residentRouteDoc = {
   "/resident": {
     get: listResident,
     post: postResident,
+  },
+  "/resident/{id}": {
+    delete: deleteResident,
   },
 };
 

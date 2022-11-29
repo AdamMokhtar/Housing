@@ -17,16 +17,26 @@ router.post("/", houseController.postHouse);
  * @description add a resident to the house by id
  * @method patch
  */
-router.patch("/addResident/:id", houseController.addResident);
+router.patch(
+  "/addResident/:id",
+  houseController.getHouse,
+  houseController.addResident
+);
 
 /**
- * @description post a new house
+ * @description removes resident form a house
+ *
  * @method patch
  */
-router.patch("/removeResident/:id", houseController.removeResident);
+router.patch(
+  "/removeResident/:id",
+  houseController.getHouse,
+  houseController.removeResident
+);
 /**
- * @description post a new house
+ * @description delete a house
  * @method delete
  */
-router.patch("/:id", houseController.deleteHouse);
+//FIXME: when id is empty it keeps looping
+router.delete("/:id", houseController.deleteHouse);
 module.exports = router;

@@ -12,5 +12,10 @@ router.get("/", residentController.getAllResidents);
  * @method post
  */
 router.post("/", residentController.createResident);
+/**
+ * @description delete a resident
+ *  @method delete
+ */
+router.delete("/:id", residentController.deleteResident);
 
 module.exports = router;

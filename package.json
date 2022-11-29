@@ -4,6 +4,9 @@
   "description": "Creating Housing API to learn NodeJS",
   "main": "index.js",
   "scripts": {
+    "test": "jest --detectOpenHandles",
+    "test:watch": "jest --watchAll --detectOpenHandles",
+    "test:coverage": "jest --coverage",
     "start": "nodemon src/server/index.js"
   },
   "repository": {
@@ -18,7 +21,12 @@
   },
   "homepage": "https://github.com/AdamMokhtar/Housing#readme",
   "devDependencies": {
-    "nodemon": "^2.0.20"
+    "@types/jest": "^29.2.3",
+    "@types/supertest": "^2.0.12",
+    "jest": "^29.3.1",
+    "nodemon": "^2.0.20",
+    "supertest": "^6.3.1",
+    "ts-jest": "^29.0.3"
   },
   "dependencies": {
     "dotenv": "^16.0.3",
@@ -27,5 +35,8 @@
     "morgan": "^1.10.0",
     "swagger-jsdoc": "^6.2.5",
     "swagger-ui-express": "^4.6.0"
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }

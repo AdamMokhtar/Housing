@@ -7,7 +7,7 @@ var ResidentDB = require("../model/resident");
 exports.getAllHouses = async (req, res) => {
   try {
     const houses = await HouseDB.find();
-    res.json(houses);
+    res.status(200).json(houses);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -18,8 +18,10 @@ exports.getAllHouses = async (req, res) => {
  */
 exports.postHouse = async (req, res) => {
   // validate request
-  if (!req.body) {
-    res.status(400).send({ message: "Content cannot be empty!" });
+  if (!req.body.address || !req.body.roomsCounter) {
+    res
+      .status(400)
+      .send({ message: "Both address and roomsCounter needs to be passed!" });
     return;
   }
   if (!req.body.ownerId) {
@@ -56,18 +58,17 @@ exports.addResident = async (req, res) => {
   }
 
   const residentId = req.body.residentId;
-  let house = await getHouse(req);
 
   // check if there's a spot available
-  if (!checkAvailabilityToAddResident(house)) {
+  if (!checkAvailabilityToAddResident(res.house)) {
     res.status(404).send({ message: "There is no room available!" });
     return;
   }
 
   try {
     const resident = await ResidentDB.findById(residentId);
-    house.residents.push(resident);
-    const newHouse = await house.save(house);
+    res.house.residents.push(resident);
+    const newHouse = await res.house.save(res.house);
     res.status(200).json(newHouse);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -78,10 +79,16 @@ exports.addResident = async (req, res) => {
  * @description delete house by id
  */
 exports.deleteHouse = async (req, res) => {
+  // validate request
+  if (!req.params.id) {
+    res.status(400).send({ message: "Resident id is needed!" });
+  }
   const _id = req.params.id;
   try {
-    const returned = await HouseDB.findByIdAndDelete(_id);
-    res.status(200).json(returned);
+    await HouseDB.findByIdAndDelete(_id);
+    res
+      .status(200)
+      .json({ message: "House with the id " + _id + " is deleted!" });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -96,13 +103,12 @@ exports.removeResident = async (req, res) => {
     return;
   }
   const residentId = req.body.residentId;
-  let house = await getHouse(req);
   try {
-    const residentIndex = house.residents.findIndex((obj) => {
+    const residentIndex = res.house.residents.findIndex((obj) => {
       return obj._id == residentId;
     });
-    house.residents.splice(residentIndex, 1);
-    const updatedHouse = await house.save(house);
+    res.house.residents.splice(residentIndex, 1);
+    const updatedHouse = await res.house.save(res.house);
     res.status(200).json(updatedHouse);
     //save
   } catch (err) {
@@ -110,7 +116,7 @@ exports.removeResident = async (req, res) => {
   }
 };
 
-async function getHouse(req) {
+exports.getHouse = async (req, res, next) => {
   let house;
   try {
     house = await HouseDB.findById(req.params.id);
@@ -120,15 +126,12 @@ async function getHouse(req) {
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
-  return house;
-}
+  res.house = house;
+  next();
+};
 
-function checkAvailabilityToAddResident(house) {
+exports.checkAvailabilityToAddResident = (house) => {
   const resCounter = house.residents.length;
   const roomCounter = house.roomsCounter;
-
-  if (roomCounter > resCounter) {
-    return true;
-  }
-  return false;
-}
+  return roomCounter > resCounter ? true : false;
+};

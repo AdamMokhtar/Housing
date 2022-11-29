@@ -1,5 +1,6 @@
 const houseRouteDoc = require("./house.doc");
 const residentRouteDoc = require("./resident.doc");
+const healthRouteDoc = require("./health.doc");
 
 const swaggerDocumentation = {
   openapi: "3.0.3",
@@ -14,9 +15,13 @@ const swaggerDocumentation = {
       description: "local dev",
     },
   ],
-  host: "localhost:3000",
+  host: "localhost:4000",
   basePath: "/",
   tags: [
+    {
+      name: "Health",
+      description: "Check the health of the API",
+    },
     {
       name: "House",
       description: "For the houses in the system",
@@ -27,6 +32,7 @@ const swaggerDocumentation = {
     },
   ],
   paths: {
+    ...healthRouteDoc,
     ...houseRouteDoc,
     ...residentRouteDoc,
   },

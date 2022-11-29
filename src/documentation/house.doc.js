@@ -46,7 +46,7 @@ const listHouse = {
       },
     },
     500: {
-      description: "Unexpected condition",
+      description: "Internal Server Error",
     },
   },
 };
@@ -87,7 +87,7 @@ const postHouse = {
       description: "ownerId should be in the content!",
     },
     500: {
-      description: "Unexpected condition",
+      description: "Internal Server Error",
     },
   },
 };
@@ -139,7 +139,7 @@ const addResident = {
       description: "cannot find house",
     },
     500: {
-      description: "Unexpected condition",
+      description: "Internal Server Error",
     },
   },
 };
@@ -163,7 +163,7 @@ const deleteHouse = {
         "application/json": {
           schema: {
             example: {
-              house,
+              message: "House with the id 6380a3b030b03fe6297990c2 is deleted!",
             },
           },
         },
@@ -173,7 +173,7 @@ const deleteHouse = {
       description: "resident id is needed!",
     },
     500: {
-      description: "Unexpected condition",
+      description: "Internal Server Error",
     },
   },
 };
@@ -222,7 +222,7 @@ const removeResident = {
       description: "cannot find house",
     },
     500: {
-      description: "unexpected condition",
+      description: "Internal Server Error",
     },
   },
 };
@@ -232,10 +232,10 @@ const houseRouteDoc = {
     get: listHouse,
     post: postHouse,
   },
-  "/house/{Id}": {
+  "/house/{id}": {
     delete: deleteHouse,
   },
-  "/house/addResident/{Id}": {
+  "/house/addResident/{id}": {
     patch: addResident,
   },
   "/house/removeResident/{id}": {
