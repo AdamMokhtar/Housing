@@ -1,4 +1,4 @@
-const { connect, disconnect } = require("../server/db");
+const { connect, disconnect } = require("../loaders/db")
 const path = require("path");
 const dotenv = require("dotenv");
 

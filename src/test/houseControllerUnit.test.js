@@ -1,4 +1,4 @@
-const houseController = require("../controller/houseController");
+const houseService = require("../service/houseService")
 const house = require("../model/house");
 const resident = require("../model/resident");
 
@@ -9,16 +9,16 @@ newRes.name = "Test";
 //creating a new house
 const newHouse = Object.create(house);
 newHouse.residents = [newRes];
-describe("house Controller", () => {
+describe("house service", () => {
   test("return true if house has an empty spot", () => {
     newHouse.roomsCounter = 3;
-    const result = houseController.checkAvailabilityToAddResident(newHouse);
+    const result = houseService.checkAvailabilityToAddResident(newHouse);
     expect(result).toEqual(true);
   });
 
   test("return false if house has no empty spot", () => {
     newHouse.roomsCounter = 1;
-    const result = houseController.checkAvailabilityToAddResident(newHouse);
+    const result = houseService.checkAvailabilityToAddResident(newHouse);
     expect(result).toEqual(false);
   });
 });
